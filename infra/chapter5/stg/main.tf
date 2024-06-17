@@ -29,3 +29,14 @@ module "vpc" {
 data "aws_ssm_parameter" "amazonlinux_2023" {
   name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64" # x86_64
 }
+
+resource "aws_instance" "main" {
+  ami           = data.aws_ssm_parameter.amazonlinux_2023.value
+  instance_type = "t3.nano"
+  subnet_id     = module.vpc.private_subnets[0]
+  tags = {
+    Name = local.name
+    # 自動デプロイのテスト時にコメント外す
+    # Env = "prod"
+  }
+}
