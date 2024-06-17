@@ -1,5 +1,12 @@
 provider "aws" {
   region = "ap-northeast-1"
+  default_tags {
+    tags = {
+      Env = "mng"
+      PJ  = "terraform-test"
+      Terraform = "true"
+    }
+  }
 }
 
 data "aws_availability_zones" "available" {}
