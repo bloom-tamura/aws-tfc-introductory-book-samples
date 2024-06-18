@@ -32,7 +32,7 @@ data "aws_ssm_parameter" "amazonlinux_2023" {
 
 resource "aws_instance" "main" {
   ami           = data.aws_ssm_parameter.amazonlinux_2023.value
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
   subnet_id     = module.vpc.private_subnets[0]
   tags = {
     Name = local.name
